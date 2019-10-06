@@ -1,0 +1,838 @@
+/*
+-----------------------------------------------
+	vars – css custom-properties
+
+	NOTE
+	- some vars change inside media-queries!
+	- under normal conditions, there's no need to touch these
+-----------------------------------------------
+*/
+:root {
+	--nav-h:       6rem;
+	--top-offset:  6rem;
+	--sidebar-w:  30rem;
+	--sidebar-mid-w: 36rem;
+	--sidebar-large-w: 48rem;
+	--main-width: 80rem;
+	--side-nav:  3.2rem;
+	--side-page:   var(--side-nav);
+
+	/* easings */
+	--out-back:    cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@media screen and (min-width: 768px) {
+	:root {
+		--side-page:  14vw;
+		--top-offset: 10rem;
+		--side-nav: 4.8rem;
+	}
+}
+
+/*	theme vars */
+.theme-default {
+	--back:       	#ffffff;
+	--back-light: 	#f6fafd;
+	--back-api: 		#eff8ff;
+	--prime:      	#ff3e00;
+	--second:     	#676778;
+	--flash:      	#40b3ff;
+	--heading:	var(--second);
+	--text:      		#444;
+	--sidebar-text: rgba(255, 255, 255, .75);
+	--border-w:  		.3rem; /* border-width  */
+	--border-r:  		.4rem; /* border-radius */
+}
+
+/*	typo vars */
+.typo-default {
+	--code-fs: 1.3rem;
+	--h6:      1.4rem;
+	--h5:      1.6rem;
+	--h4:      1.8rem; /* default font-size */
+	--h3:      2.6rem;
+	--h2:        3rem;
+	--h1:      3.2rem;
+	--linemax:   42em; /* max line-length */
+	--lh:  		 	  1.5; /* base line-height */
+}
+
+body {
+	--font: 'Overpass', sans-serif;
+	--font-mono: 'Fira Mono', monospace;
+}
+
+
+/*	fonts ---------------------------------- */
+/* overpass-300normal - latin */
+@font-face {
+	font-family: 'Overpass';
+	font-style: normal;
+	font-weight: 300;
+	src:
+		local('Overpass Light '),
+		local('Overpass-Light'),
+		url('/fonts/overpass/overpass-latin-300.woff2') format('woff2');
+}
+
+/* overpass-600normal - latin */
+@font-face {
+	font-family: 'Overpass';
+	font-style: normal;
+	font-weight: 600;
+	src:
+		local('Overpass Bold '),
+		local('Overpass-Bold'),
+		url('/fonts/overpass/overpass-latin-600.woff2') format('woff2');
+}
+
+/* fira-mono-400normal - latin */
+@font-face {
+	font-family: 'Fira Mono';
+	font-style: normal;
+	font-weight: 400;
+	src:
+		local('Fira Mono Regular '),
+		local('Fira Mono-Regular'),
+		url('/fonts/fira-mono/fira-mono-latin-400.woff2') format('woff2');
+}
+
+/*	base reset ----------------------------- */
+html {
+	font-size: 62.5%;
+	-webkit-text-size-adjust: 100%;
+	-ms-overflow-style: -ms-autohiding-scrollbar;
+	box-sizing: border-box;
+	border-collapse: collapse;
+}
+
+html,
+body,
+#sapper {
+	width: 100%;
+	height: 100%;
+}
+
+* {
+	box-sizing: inherit;
+	margin: 0;
+	padding: 0;
+}
+
+/*	link reset ----------------------------- */
+a {
+	text-decoration: none;
+	cursor: pointer;
+	color: inherit;
+}
+
+a:hover, a:active { color: var(--flash) }
+a:focus { outline: none }
+
+/*
+-----------------------------------------------
+	global styles
+-----------------------------------------------
+*/
+
+/*	typography ----------------------------- */
+body {
+	font: 300 var(--h4)/var(--lh) var(--font);
+	background-color: var(--back);
+	color: var(--text);
+
+	/* default spacing of Overpass is a bit too airy */
+	/* letter-spacing: -.013em; */
+}
+
+h1, h2, h3, h4, h5, h6, blockquote {
+	position: relative;
+	margin: 0;
+	color: var(--heading);
+}
+
+/* h1, h2, h3, h4, h5, h6 { font-weight: 600 } */
+h6 { font-size: var(--h6) }
+h5 { font-size: var(--h5) }
+h4 { font-size: var(--h4) }
+h3 { font-size: var(--h3) }
+h2 { font-size: var(--h2) }
+h1 { font-size: var(--h1) }
+
+h1, h2 {
+	font-family: var(--font);
+	line-height: 1.25;
+}
+
+h3 { font-weight: 300 }
+
+p, ol, ul {
+	margin: 0 0 1em 0;
+}
+
+.b, b, strong { font-weight: 600 }
+
+tt, code, kbd, samp {
+	font: 400 var(--code-fs)/1.7 var(--font-mono);
+}
+
+code {
+	position: relative;
+	border-radius: .3em;
+	white-space: nowrap;
+	color: #444;
+	-webkit-font-smoothing: initial;
+}
+
+pre code {
+	top: 0;
+	white-space: inherit;
+	background-color: none;
+}
+
+/* sync CodeMirror with prism  */
+.CodeMirror {
+	font-size: var(--code-fs) !important;
+}
+
+::selection {
+	background: var(--flash);
+	color: white;
+}
+
+/*	opinionated styles --------------------- */
+
+li:not(.white) > h2 {
+	color: var(--second)
+}
+
+blockquote {
+	position: relative;
+	margin: 1.6rem 0 2.4rem;
+	padding: 2rem 2.4rem 1.8rem 2.4rem;
+	border-radius: var(--border-r);
+	font-family: var(--font);
+	max-width: var(--linemax);
+}
+
+blockquote p {
+	font-size: var(--h5);
+}
+
+blockquote :last-child {
+	margin: 0;
+}
+
+/*  buttons -------------------------------- */
+button {
+	font-family: inherit;
+	font-size: inherit;
+	background-color: transparent;
+	border: none;
+	color: currentColor;
+	cursor: pointer;
+}
+
+button:focus,
+.btn:focus { outline: 0 }
+
+button[disabled],
+.btn[disabled],
+.btn:hover[disabled] {
+	opacity: .55;
+	pointer-events: none;
+}
+
+button > svg,
+.btn > svg {
+	position: relative;
+	top: -.1rem;
+	width: 2rem !important;
+	height: 2rem !important;
+	stroke: currentColor !important;
+}
+
+/*  reset ------- */
+.btn {
+	--btn-h: 4rem;
+	--btn-outline: .2rem;
+	--btn-font: var(--font);
+	--btn-calc-h: calc(var(--btn-h) - var(--btn-outline) * 2);
+	--btn-hover: linear-gradient(to top, rgba(0,0,0,.07), rgba(0,0,0,.07));
+
+	position: relative;
+	margin: 0 .8rem .8rem 0;
+	vertical-align: middle;
+	white-space: nowrap;
+	display: inline-block;
+	zoom: 1;
+	border: none transparent;
+	font: var(--h4) var(--btn-font);
+	border-radius: var(--border-r);
+	color: currentColor;
+	cursor: pointer;
+}
+
+/*  default */
+.btn {
+	line-height: var(--btn-h);
+	height: var(--btn-h);
+	padding: 0 1.6rem;
+	transition: all .1s;
+}
+
+.btn:hover  {
+	transform: scale(.98);
+	mix-blend-mode: multiply;
+	background-image: var(--btn-hover);
+}
+
+/*  optional */
+.btn[outline] {
+	line-height: var(--btn-calc-h);
+	height: var(--btn-calc-h);
+	border: var(--btn-outline) solid currentColor;
+	background-color: white;
+	color: currentColor;
+}
+
+/*  links ------------------------------------- */
+a {
+	position: relative;
+	padding: 0 0 1px 0;
+	border-bottom: 1px solid currentColor;
+	user-select: none;
+	color: var(--prime);
+	transition: color .2s, border .2s, padding .2s;
+}
+
+a:hover  {
+	color: var(--flash);
+}
+
+a:hover {
+	padding: 0;
+	border-bottom: 2px solid currentColor;
+}
+
+a.no-underline {
+	border-bottom: none;
+	padding: 0;
+}
+
+/* a:hover:not(.disabled) > .icon { stroke: var(--flash) } */
+
+/*  lists ---------------------------------- */
+.listify ol,
+.listify ul {
+	--list-padding: 2.9rem;
+
+	list-style: none;
+	color: currentColor;
+	margin-left: var(--list-padding);
+}
+
+.listify ol > li,
+.listify ul > li {
+	max-width: calc(var(--linemax) - var(--list-padding));
+	line-height: 1.5;
+	margin: 0 0 0.4rem 0;
+}
+
+.listify ul > li:before {
+	content: '';
+	position: absolute;
+	margin-top: 1.1rem;
+	margin-left: -1.8rem;
+	background-color: var(--second);
+	width: .6rem;
+	height: .6rem;
+	border-radius: 2px;
+	opacity: 0.7;
+}
+
+.listify ol { list-style: decimal }
+
+/*  tables --------------------------------- */
+table {
+	width: 100%;
+	font-size: var(--h5);
+}
+
+td, th {
+	text-align: left;
+	border-bottom: 1px solid #eee;
+	padding: 0.4rem 0.8rem 0.4rem 0;
+}
+
+table code, table span {
+	white-space: pre;
+}
+
+/*	grid ----------------------------------- */
+.grid, .grid.half {
+	display: grid;
+	grid-gap: 2.4rem;
+	grid-template-columns: 1fr;
+	align-items: center;
+}
+
+.grid.stretch { align-items: stretch }
+
+.grid > .cols-2,
+.grid > .cols-3 { grid-column: span 1 }
+
+@media screen and (min-width: 840px) {
+	.grid.half,
+	.grid { grid-template-columns: repeat(2, 1fr) }
+	.grid > .cols-2,
+	.grid > .cols-3 { grid-column: span 2 }
+}
+
+@media screen and (min-width: 1100px) {
+	.grid { grid-template-columns: repeat(3, 1fr) }
+	.grid > .cols-2 { grid-column: span 2 }
+	.grid > .cols-3 { grid-column: span 3 }
+}
+
+/*	helper styles -------------------------- */
+.flex-auto { flex: 1 0 auto }
+
+.py0 {
+	padding-top: 0 !important;
+	padding-bottom: 0 !important;
+}
+
+.legend, figcaption, .post aside {
+	max-width: none;
+	margin: 0 auto;
+	padding: 1.6rem 0 0 .8rem;
+	font: 1.2rem/1.6 var(--font-mono);
+}
+
+.filename {
+	display: inline-block;
+	padding: 1.6rem 0 0 1rem;
+	font: var(--h6) var(--font-mono);
+}
+
+.box {
+	padding: 2.4rem 3.2rem;
+	border-radius: var(--border-r);
+}
+
+/*	theme colors --------------------------- */
+.prime      { color: var(--prime) !important }
+.second     { color: var(--second) !important }
+.flash      { color: var(--flash) !important }
+.black      { color: black !important }
+.white      { color: white !important }
+
+.back       { background-color: var(--back) !important }
+.back-light { background-color: var(--back-light) !important }
+.bg-prime   { background-color: var(--prime) !important }
+.bg-second  { background-color: var(--second) !important }
+.bg-flash   { background-color: var(--flash) !important }
+
+/*	inputs --------------------------------- */
+input[type="checkbox"] {
+	/* display: block; */
+	position: relative;
+	height: 1em;
+	width: calc(100% - 0.6em);
+	max-width: 2em;
+	top: -2px;
+	border-radius: 0.5em;
+	-webkit-appearance: none;
+	outline: none;
+	margin: 0 0.6em 0 0;
+}
+
+input[type="checkbox"]::before {
+	content: "";
+	position: absolute;
+	display: block;
+	height: 100%;
+	width: 100%;
+	padding: 2px;
+	border-radius: 1em;
+	top: 0;
+	left: 0;
+	background: var(--second);
+	/* box-sizing: border-box; */
+	box-sizing: content-box;
+}
+
+input[type="checkbox"]:checked::before {
+	background: var(--prime);
+}
+
+input[type="checkbox"]::after {
+	content: "";
+	position: absolute;
+	display: block;
+	height: 1em;
+	width: 1em;
+	top: 2px;
+	left: 2px;
+	border-radius: 1em;
+	background: white;
+	box-shadow: 0 0px 1px rgba(0,0,0,.4), 0 4px 2px rgba(0,0,0,.1);
+	-webkit-transition: background .2s ease-out, left .2s ease-out;
+}
+
+input[type="checkbox"]:checked::after {
+	left: calc(100% - 9px);
+}
+.container.svelte-u533s9{padding:var(--top-offset) var(--side-nav) 6rem var(--side-nav)}h1.svelte-u533s9,p.svelte-u533s9{margin:0 auto }h1.svelte-u533s9{font-size:2.8em;font-weight:300;margin:0 0 0.5em 0}p.svelte-u533s9{margin:1em auto }.error.svelte-u533s9{background-color:#da106e;color:white;padding:12px 16px;font:600 16px/1.7 var(--font);border-radius:2px}
+/* BASICS */
+
+.CodeMirror {
+	/* copied colors over from prism */
+	--background: var(--back-light);
+	--base:       hsl(45, 7%, 45%);
+	--comment:    hsl(210, 25%, 60%);
+	--keyword:    hsl(204, 58%, 45%);
+	--function:   hsl(19, 67%, 45%);
+	--string:     hsl(41, 37%, 45%);
+	--number:     hsl(102, 27%, 50%);
+	--tags:       var(--function);
+	--important:  var(--string);
+
+  /* Set height, width, borders, and global font properties here */
+  /* see prism.css */
+  height: 300px;
+  direction: ltr;
+}
+
+/* PADDING */
+
+.CodeMirror-lines {
+  padding: 4px 0; /* Vertical padding around content */
+}
+.CodeMirror pre {
+  padding: 0 4px; /* Horizontal padding of content */
+}
+
+.CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler {
+  background-color: white; /* The little square between H and V scrollbars */
+}
+
+/* GUTTER */
+
+.CodeMirror-gutters {
+  border-right: 1px solid #ddd;
+  background-color: var(--back-light);
+  white-space: nowrap;
+}
+.CodeMirror-linenumber {
+  padding: 0 3px 0 5px;
+  min-width: 20px;
+  text-align: right;
+  color: var(--comment);
+  white-space: nowrap;
+  opacity: .6;
+}
+
+.CodeMirror-guttermarker { color: black; }
+.CodeMirror-guttermarker-subtle { color: #999; }
+
+/* CURSOR */
+
+.CodeMirror-cursor {
+  border-left: 1px solid black;
+  border-right: none;
+  width: 0;
+}
+/* Shown when moving in bi-directional text */
+.CodeMirror div.CodeMirror-secondarycursor {
+  border-left: 1px solid silver;
+}
+.cm-fat-cursor .CodeMirror-cursor {
+  width: auto;
+  border: 0 !important;
+  background: #7e7;
+}
+.cm-fat-cursor div.CodeMirror-cursors {
+  z-index: 1;
+}
+.cm-fat-cursor-mark {
+  background-color: rgba(20, 255, 20, .5);
+  -webkit-animation: blink 1.06s steps(1) infinite;
+  -moz-animation: blink 1.06s steps(1) infinite;
+  animation: blink 1.06s steps(1) infinite;
+}
+.cm-animate-fat-cursor {
+  width: auto;
+  border: 0;
+  -webkit-animation: blink 1.06s steps(1) infinite;
+  -moz-animation: blink 1.06s steps(1) infinite;
+  animation: blink 1.06s steps(1) infinite;
+  background-color: #7e7;
+}
+@-moz-keyframes blink {
+  0% {}
+  50% { background-color: transparent; }
+  100% {}
+}
+@-webkit-keyframes blink {
+  0% {}
+  50% { background-color: transparent; }
+  100% {}
+}
+@keyframes blink {
+  0% {}
+  50% { background-color: transparent; }
+  100% {}
+}
+
+.cm-tab { display: inline-block; text-decoration: inherit; }
+
+.CodeMirror-rulers {
+  position: absolute;
+  left: 0; right: 0; top: -50px; bottom: -20px;
+  overflow: hidden;
+}
+.CodeMirror-ruler {
+  border-left: 1px solid #ccc;
+  top: 0; bottom: 0;
+  position: absolute;
+}
+
+/* DEFAULT THEME */
+.cm-s-default .cm-header {color: blue}
+.cm-s-default .cm-quote {color: #090}
+.cm-negative {color: #d44}
+.cm-positive {color: #292}
+.cm-header, .cm-strong {font-weight: bold}
+.cm-em {font-style: italic}
+.cm-link {text-decoration: underline}
+.cm-strikethrough {text-decoration: line-through}
+
+.cm-s-default .cm-atom,
+.cm-s-default .cm-def,
+.cm-s-default .cm-property,
+.cm-s-default .cm-variable-2,
+.cm-s-default .cm-variable-3,
+.cm-s-default .cm-punctuation {color: var(--base)}
+.cm-s-default .cm-hr,
+.cm-s-default .cm-comment {color: var(--comment)}
+.cm-s-default .cm-attribute,
+.cm-s-default .cm-keyword {color: var(--keyword)}
+.cm-s-default .cm-variable,
+.cm-s-default .cm-bracket,
+.cm-s-default .cm-tag {color: var(--tags)}
+.cm-s-default .cm-number {color: var(--number)}
+.cm-s-default .cm-string {color: var(--string)}
+
+.cm-s-default .cm-string-2 {color: #f50}
+.cm-s-default .cm-type {color: #085}
+.cm-s-default .cm-meta {color: #555}
+.cm-s-default .cm-qualifier {color: #555}
+.cm-s-default .cm-builtin {color: #30a}
+.cm-s-default .cm-link {color: var(--flash)}
+.cm-s-default .cm-error {color: #ff008c}
+.cm-invalidchar {color: #ff008c}
+
+.CodeMirror-composing { border-bottom: 2px solid; }
+
+/* Default styles for common addons */
+
+div.CodeMirror span.CodeMirror-matchingbracket {color: #0b0;}
+div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #a22;}
+.CodeMirror-matchingtag { background: rgba(255, 150, 0, .3); }
+.CodeMirror-activeline-background {background: #e8f2ff;}
+
+/* STOP */
+
+/* The rest of this file contains styles related to the mechanics of
+   the editor. You probably shouldn't touch them. */
+
+.CodeMirror {
+  position: relative;
+  overflow: hidden;
+  background: white;
+}
+
+.CodeMirror-scroll {
+  overflow: scroll !important; /* Things will break if this is overridden */
+  /* 30px is the magic margin used to hide the element's real scrollbars */
+  /* See overflow: hidden in .CodeMirror */
+  margin-bottom: -30px; margin-right: -30px;
+  padding-bottom: 30px;
+  height: 100%;
+  outline: none; /* Prevent dragging from highlighting the element */
+  position: relative;
+}
+.CodeMirror-sizer {
+  position: relative;
+  border-right: 30px solid transparent;
+}
+
+/* The fake, visible scrollbars. Used to force redraw during scrolling
+   before actual scrolling happens, thus preventing shaking and
+   flickering artifacts. */
+.CodeMirror-vscrollbar, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler {
+  position: absolute;
+  z-index: 6;
+  display: none;
+}
+.CodeMirror-vscrollbar {
+  right: 0; top: 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.CodeMirror-hscrollbar {
+  bottom: 0; left: 0;
+  overflow-y: hidden;
+  overflow-x: scroll;
+}
+.CodeMirror-scrollbar-filler {
+  right: 0; bottom: 0;
+}
+.CodeMirror-gutter-filler {
+  left: 0; bottom: 0;
+}
+
+.CodeMirror-gutters {
+  position: absolute; left: 0; top: 0;
+  min-height: 100%;
+  z-index: 3;
+}
+.CodeMirror-gutter {
+  white-space: normal;
+  height: 100%;
+  display: inline-block;
+  vertical-align: top;
+  margin-bottom: -30px;
+}
+.CodeMirror-gutter-wrapper {
+  position: absolute;
+  z-index: 4;
+  background: none !important;
+  border: none !important;
+}
+.CodeMirror-gutter-background {
+  position: absolute;
+  top: 0; bottom: 0;
+  z-index: 4;
+}
+.CodeMirror-gutter-elt {
+  position: absolute;
+  cursor: default;
+  z-index: 4;
+}
+.CodeMirror-gutter-wrapper ::selection { background-color: transparent }
+.CodeMirror-gutter-wrapper ::-moz-selection { background-color: transparent }
+
+.CodeMirror-lines {
+  cursor: text;
+  min-height: 1px; /* prevents collapsing before first draw */
+}
+.CodeMirror pre {
+  /* Reset some styles that the rest of the page might have set */
+  -moz-border-radius: 0; -webkit-border-radius: 0; border-radius: 0;
+  border-width: 0;
+  background: transparent;
+  font-family: inherit;
+  font-size: inherit;
+  margin: 0;
+  white-space: pre;
+  word-wrap: normal;
+  line-height: inherit;
+  color: inherit;
+  z-index: 2;
+  position: relative;
+  overflow: visible;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-variant-ligatures: contextual;
+  font-variant-ligatures: contextual;
+}
+.CodeMirror-wrap pre {
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  word-break: normal;
+}
+
+.CodeMirror-linebackground {
+  position: absolute;
+  left: 0; right: 0; top: 0; bottom: 0;
+  z-index: 0;
+}
+
+.CodeMirror-linewidget {
+  position: relative;
+  z-index: 2;
+  padding: .1px; /* Force widget margins to stay inside of the container */
+}
+
+.CodeMirror-rtl pre { direction: rtl; }
+
+.CodeMirror-code {
+  outline: none;
+}
+
+/* Force content-box sizing for the elements where we expect it */
+.CodeMirror-scroll,
+.CodeMirror-sizer,
+.CodeMirror-gutter,
+.CodeMirror-gutters,
+.CodeMirror-linenumber {
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+.CodeMirror-measure {
+  position: absolute;
+  width: 100%;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+.CodeMirror-cursor {
+  position: absolute;
+  pointer-events: none;
+}
+.CodeMirror-measure pre { position: static; }
+
+div.CodeMirror-cursors {
+  visibility: hidden;
+  position: relative;
+  z-index: 3;
+}
+div.CodeMirror-dragcursors {
+  visibility: visible;
+}
+
+.CodeMirror-focused div.CodeMirror-cursors {
+  visibility: visible;
+}
+
+.CodeMirror-selected { background: #d9d9d9; }
+.CodeMirror-focused .CodeMirror-selected { background: #d7d4f0; }
+.CodeMirror-crosshair { cursor: crosshair; }
+.CodeMirror-line::selection, .CodeMirror-line > span::selection, .CodeMirror-line > span > span::selection { background: #d7d4f0; }
+.CodeMirror-line::-moz-selection, .CodeMirror-line > span::-moz-selection, .CodeMirror-line > span > span::-moz-selection { background: #d7d4f0; }
+
+.cm-searching {
+  background-color: #ffa;
+  background-color: rgba(255, 255, 0, .4);
+}
+
+/* Used to force a border model for a node */
+.cm-force-border { padding-right: .1px; }
+
+@media print {
+  /* Hide the cursor when printing */
+  .CodeMirror div.CodeMirror-cursors {
+    visibility: hidden;
+  }
+}
+
+/* See issue #2901 */
+.cm-tab-wrap-hack:after { content: ''; }
+
+/* Help users use markselection to safely style text background */
+span.CodeMirror-selectedtext { background: none; }
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibWFpbi4zNzQyODk3NDc1LmNzcyIsInNvdXJjZXMiOlsiLi4vLi4vLi4vc3JjL3JvdXRlcy9fZXJyb3Iuc3ZlbHRlIl0sInNvdXJjZXNDb250ZW50IjpbIjxzY3JpcHQ+XG5cdGNvbnN0IGRldiA9IFwiZGV2ZWxvcG1lbnRcIiA9PT0gJ2RldmVsb3BtZW50JztcblxuXHRleHBvcnQgbGV0IHN0YXR1cztcblx0ZXhwb3J0IGxldCBlcnJvcjtcblxuXHQvLyB3ZSBkb24ndCB3YW50IHRvIHVzZSA8c3ZlbHRlOndpbmRvdyBiaW5kOm9ubGluZT4gaGVyZSxcblx0Ly8gYmVjYXVzZSB3ZSBvbmx5IGNhcmUgYWJvdXQgdGhlIG9ubGluZSBzdGF0ZSB3aGVuXG5cdC8vIHRoZSBwYWdlIGZpcnN0IGxvYWRzXG5cdGNvbnN0IG9ubGluZSA9IHR5cGVvZiBuYXZpZ2F0b3IgIT09ICd1bmRlZmluZWQnXG5cdFx0PyBuYXZpZ2F0b3Iub25MaW5lXG5cdFx0OiB0cnVlO1xuPC9zY3JpcHQ+XG5cbjxzdHlsZT5cblx0LmNvbnRhaW5lciB7XG5cdFx0cGFkZGluZzogdmFyKC0tdG9wLW9mZnNldCkgdmFyKC0tc2lkZS1uYXYpIDZyZW0gdmFyKC0tc2lkZS1uYXYpO1xuXHR9XG5cblx0aDEsIHAgeyBtYXJnaW46IDAgYXV0byB9XG5cblx0aDEge1xuXHRcdGZvbnQtc2l6ZTogMi44ZW07XG5cdFx0Zm9udC13ZWlnaHQ6IDMwMDtcblx0XHRtYXJnaW46IDAgMCAwLjVlbSAwO1xuXHR9XG5cblx0cCB7IG1hcmdpbjogMWVtIGF1dG8gfVxuXG5cdC5lcnJvciB7XG5cdFx0YmFja2dyb3VuZC1jb2xvcjogI2RhMTA2ZTtcblx0XHRjb2xvcjogd2hpdGU7XG5cdFx0cGFkZGluZzogMTJweCAxNnB4O1xuXHRcdGZvbnQ6IDYwMCAxNnB4LzEuNyB2YXIoLS1mb250KTtcblx0XHRib3JkZXItcmFkaXVzOiAycHg7XG5cdH1cblxuXHQvKiBAbWVkaWEgKG1pbi13aWR0aDogNDgwcHgpIHtcblx0XHRoMSB7IGZvbnQtc2l6ZTogNGVtIH1cblx0fSAqL1xuPC9zdHlsZT5cblxuPHN2ZWx0ZTpoZWFkPlxuXHQ8dGl0bGU+e3N0YXR1c308L3RpdGxlPlxuPC9zdmVsdGU6aGVhZD5cblxuPGRpdiBjbGFzcz1cImNvbnRhaW5lclwiPlxuXHR7I2lmIG9ubGluZX1cblx0XHQ8aDE+WWlrZXMhPC9oMT5cblxuXHRcdHsjaWYgZXJyb3IubWVzc2FnZX1cblx0XHRcdDxwIGNsYXNzPVwiZXJyb3JcIj57c3RhdHVzfToge2Vycm9yLm1lc3NhZ2V9PC9wPlxuXHRcdHs6ZWxzZX1cblx0XHRcdDxwIGNsYXNzPVwiZXJyb3JcIj5FbmNvdW50ZXJlZCBhIHtzdGF0dXN9IGVycm9yPC9wPlxuXHRcdHsvaWZ9XG5cblx0XHR7I2lmIGRldiAmJiBlcnJvci5zdGFja31cblx0XHRcdDxwcmU+e2Vycm9yLnN0YWNrfTwvcHJlPlxuXHRcdHs6ZWxzZX1cblx0XHRcdHsjaWYgc3RhdHVzID49IDUwMH1cblx0XHRcdFx0PHA+UGxlYXNlIHRyeSByZWxvYWRpbmcgdGhlIHBhZ2UuPC9wPlxuXHRcdFx0ey9pZn1cblxuXHRcdFx0PHA+SWYgdGhlIGVycm9yIHBlcnNpc3RzLCBwbGVhc2UgZHJvcCBieSA8YSBocmVmPVwiY2hhdFwiPkRpc2NvcmQgY2hhdHJvb208L2E+IGFuZCBsZXQgdXMga25vdywgb3IgcmFpc2UgYW4gaXNzdWUgb24gPGEgaHJlZj1cImh0dHBzOi8vZ2l0aHViLmNvbS9zdmVsdGVqcy9zdmVsdGVcIj5HaXRIdWI8L2E+LiBUaGFua3MhPC9wPlxuXHRcdHsvaWZ9XG5cdHs6ZWxzZX1cblx0XHQ8aDE+SXQgbG9va3MgbGlrZSB5b3UncmUgb2ZmbGluZTwvaDE+XG5cblx0XHQ8cD5SZWxvYWQgdGhlIHBhZ2Ugb25jZSB5b3UndmUgZm91bmQgdGhlIGludGVybmV0LjwvcD5cblx0ey9pZn1cbjwvZGl2PiJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFlQyxVQUFVLGNBQUMsQ0FBQyxBQUNYLE9BQU8sQ0FBRSxJQUFJLFlBQVksQ0FBQyxDQUFDLElBQUksVUFBVSxDQUFDLENBQUMsSUFBSSxDQUFDLElBQUksVUFBVSxDQUFDLEFBQ2hFLENBQUMsQUFFRCxnQkFBRSxDQUFFLENBQUMsY0FBQyxDQUFDLEFBQUMsTUFBTSxDQUFFLENBQUMsQ0FBQyxJQUFJLENBQUMsQ0FBQyxBQUV4QixFQUFFLGNBQUMsQ0FBQyxBQUNILFNBQVMsQ0FBRSxLQUFLLENBQ2hCLFdBQVcsQ0FBRSxHQUFHLENBQ2hCLE1BQU0sQ0FBRSxDQUFDLENBQUMsQ0FBQyxDQUFDLEtBQUssQ0FBQyxDQUFDLEFBQ3BCLENBQUMsQUFFRCxDQUFDLGNBQUMsQ0FBQyxBQUFDLE1BQU0sQ0FBRSxHQUFHLENBQUMsSUFBSSxDQUFDLENBQUMsQUFFdEIsTUFBTSxjQUFDLENBQUMsQUFDUCxnQkFBZ0IsQ0FBRSxPQUFPLENBQ3pCLEtBQUssQ0FBRSxLQUFLLENBQ1osT0FBTyxDQUFFLElBQUksQ0FBQyxJQUFJLENBQ2xCLElBQUksQ0FBRSxHQUFHLENBQUMsSUFBSSxDQUFDLEdBQUcsQ0FBQyxJQUFJLE1BQU0sQ0FBQyxDQUM5QixhQUFhLENBQUUsR0FBRyxBQUNuQixDQUFDIn0= */
