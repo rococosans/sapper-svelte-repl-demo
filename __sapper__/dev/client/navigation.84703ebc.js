@@ -1,4 +1,0 @@
-const getFragment = () => window.location.hash.slice(1);
-
-export { getFragment as g };
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibmF2aWdhdGlvbi44NDcwM2ViYy5qcyIsInNvdXJjZXMiOlsiLi4vLi4vLi4vbm9kZV9tb2R1bGVzL0BzdmVsdGVqcy9zaXRlLWtpdC91dGlscy9uYXZpZ2F0aW9uLmpzIl0sInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBjb25zdCBnZXRGcmFnbWVudCA9ICgpID0+IHdpbmRvdy5sb2NhdGlvbi5oYXNoLnNsaWNlKDEpO1xuIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFZLE1BQUMsV0FBVyxHQUFHLE1BQU0sTUFBTSxDQUFDLFFBQVEsQ0FBQyxJQUFJLENBQUMsS0FBSyxDQUFDLENBQUMsQ0FBQzs7OzsifQ==

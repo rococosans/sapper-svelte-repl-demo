@@ -1,8 +1,0 @@
-import './index.121aa0ed.js';
-import './index.ab7b6b80.js';
-import { s as start } from './app.688aaf8d.js';
-
-start({
-	target: document.querySelector('#sapper')
-});
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY2xpZW50Ljc5ZjA3ZjFlLmpzIiwic291cmNlcyI6WyIuLi8uLi8uLi9zcmMvY2xpZW50LmpzIl0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCAnQHN2ZWx0ZWpzL3NpdGUta2l0L2Jhc2UuY3NzJztcbmltcG9ydCAqIGFzIHNhcHBlciBmcm9tICdAc2FwcGVyL2FwcCc7XG5cbnNhcHBlci5zdGFydCh7XG5cdHRhcmdldDogZG9jdW1lbnQucXVlcnlTZWxlY3RvcignI3NhcHBlcicpXG59KTsiXSwibmFtZXMiOlsic2FwcGVyLnN0YXJ0Il0sIm1hcHBpbmdzIjoiOzs7O0FBR0FBLEtBQVksQ0FBQztDQUNaLE1BQU0sRUFBRSxRQUFRLENBQUMsYUFBYSxDQUFDLFNBQVMsQ0FBQztDQUN6QyxDQUFDIn0=
