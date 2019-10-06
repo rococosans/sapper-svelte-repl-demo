@@ -1,5 +1,5 @@
 <script>
-	import ReplWidget from '../components/Repl/ReplWidget.svelte';
+	import ReplWidget from '../components/ReplWidget.svelte';
 </script>
 
 <style>
@@ -17,5 +17,5 @@
 
 
 <div class="repl-container">
-	<ReplWidget example="hello-world"/>
+	<ReplWidget />
 </div>

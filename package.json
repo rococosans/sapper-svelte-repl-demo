@@ -1,7 +1,7 @@
 {
-  "name": "svelte.dev",
+  "name": "sapper-svelte-repl-demo",
   "version": "1.0.0",
-  "description": "Docs and examples for Svelte",
+  "description": "Demo to show a distilled usage of Svlete Repl",
   "scripts": {
     "dev": "npm run copy-workers && sapper dev",
     "copy-workers": "rm -rf static/workers && cp -r node_modules/@sveltejs/svelte-repl/workers static",
