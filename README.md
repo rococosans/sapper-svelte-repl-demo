@@ -1,8 +1,20 @@
 # sapper-svelte-repl-demo
 
-TODO: Write more...
+[WIP]
 
-This was a thing.
+## Getting started
+
+Run:
+
+```bash
+npm run srcdoc
+
+also maybe...
+
+npm run build
+```
+
+This is something...
 
 ```js
 repl.set({
